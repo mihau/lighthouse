@@ -9,9 +9,9 @@ import (
 func OverrideTaskSpec(ts *tektonv1beta1.TaskSpec, override *tektonv1beta1.TaskSpec) {
 	if override.StepTemplate != nil {
 		if ts.StepTemplate == nil {
-			ts.StepTemplate = &v1.Container{}
+			ts.StepTemplate = &tektonv1beta1.StepTemplate{}
 		}
-		OverrideContainer(ts.StepTemplate, override.StepTemplate, true)
+		OverrideContainer(ts.StepTemplate.ToK8sContainer(), override.StepTemplate.ToK8sContainer(), true)
 		if override.StepTemplate.Image != "" {
 			ts.StepTemplate.Image = override.StepTemplate.Image
 		}
@@ -34,7 +34,7 @@ func OverrideStep(step *tektonv1beta1.Step, override *tektonv1beta1.Step) {
 	if override.Timeout != nil {
 		step.Timeout = override.Timeout
 	}
-	OverrideContainer(&step.Container, &override.Container, true)
+	OverrideContainer(step.ToK8sContainer(), override.ToK8sContainer(), true)
 }
 
 // OverrideContainer overrides the container properties

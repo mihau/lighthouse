@@ -7,7 +7,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/tektoncd/pipeline/pkg/apis/pipeline/v1beta1"
+	v1beta1 "github.com/tektoncd/pipeline/pkg/apis/pipeline/v1beta1"
 	corev1 "k8s.io/api/core/v1"
 )
 
@@ -118,7 +118,7 @@ func DefaultPipelineParameters(prs *v1beta1.PipelineRun) (*v1beta1.PipelineRun, 
 
 			// lets create a step template if its not already defined
 			if task.TaskSpec.StepTemplate == nil {
-				task.TaskSpec.StepTemplate = &corev1.Container{}
+				task.TaskSpec.StepTemplate = &v1beta1.StepTemplate{}
 			}
 			stepTemplate := task.TaskSpec.StepTemplate
 			stepTemplate.Env = addDefaultParameterEnvVars(stepTemplate.Env, defaultParameters)
@@ -133,7 +133,7 @@ func DefaultPipelineParameters(prs *v1beta1.PipelineRun) (*v1beta1.PipelineRun, 
 
 			// lets create a step template if its not already defined
 			if task.TaskSpec.StepTemplate == nil {
-				task.TaskSpec.StepTemplate = &corev1.Container{}
+				task.TaskSpec.StepTemplate = &v1beta1.StepTemplate{}
 			}
 			stepTemplate := task.TaskSpec.StepTemplate
 			stepTemplate.Env = addDefaultParameterEnvVars(stepTemplate.Env, defaultParameters)
