@@ -286,7 +286,7 @@ func runRequested(c Client, pr *scm.PullRequest, requestedJobs []job.Presubmit, 
 		if _, err := c.LauncherClient.Launch(&pj); err != nil {
 			c.Logger.WithError(err).Error("Failed to create LighthouseJob.")
 			errors = append(errors, err)
-			if _, statusErr := c.SCMProviderClient.CreateStatus(pr.Base.Repo.Namespace, pr.Base.Repo.Name, pr.Head.Ref, failedStatusForMetapipelineCreation(job.Context, err)); statusErr != nil {
+			if _, statusErr := c.SCMProviderClient.CreateStatus(pr.Base.Repo.Namespace, pr.Base.Repo.Name, pr.Head.Sha, failedStatusForMetapipelineCreation(job.Context, err)); statusErr != nil {
 				errors = append(errors, statusErr)
 			}
 		}
